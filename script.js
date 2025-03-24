@@ -1,7 +1,3 @@
-//todo:load cards
-//functie ce creaza un card
-//primeste ca paramtru  o persoana si returneaza un card
-
 //===============FUNCTIONS=========================
 
 function loadUsers(users) {
@@ -52,13 +48,12 @@ function pagination(users) {
    return arr;
 }
 function buttons() {
-   
+
    let nrBtn = Math.ceil(data.length / usersPerPage);
 
    for (let i = 1; i <= nrBtn; i++){
     
       ul.appendChild(createButton(i));
-      
    }}
 function createButton( nr) {
 
@@ -95,7 +90,6 @@ searchInpt.addEventListener("input", () => {
 ul.addEventListener("click", (e) => {
   
    let obj = e.target;
-
    page = obj.textContent;
 
    loadUsers(data);
