@@ -5,6 +5,7 @@ function loadUsers(users) {
    container.innerHTML = ``;
    let usersDisplay = pagination(users);
    usersDisplay.forEach(user => {
+      if(user)
    container.appendChild(createCard(user));
    })
 }
@@ -90,7 +91,16 @@ searchInpt.addEventListener("input", () => {
 ul.addEventListener("click", (e) => {
   
    let obj = e.target;
-   page = obj.textContent;
 
-   loadUsers(data);
+   if (obj.tagName == "BUTTON") {
+      
+      console.log(obj.textContent);
+      page = +obj.textContent
+      console.log(page);
+
+      loadUsers(data);
+   }
+  
+
+ 
 });
