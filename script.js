@@ -80,7 +80,6 @@ let page = 1;
 let usersPerPage = 5;
 
 loadUsers(data);
-
 buttons(data);
 
 searchInpt.addEventListener("input", () => {
@@ -91,16 +90,11 @@ searchInpt.addEventListener("input", () => {
 ul.addEventListener("click", (e) => {
   
    let obj = e.target;
-
    if (obj.tagName == "BUTTON") {
       
       console.log(obj.textContent);
       page = +obj.textContent
       console.log(page);
-
       loadUsers(data);
    }
-  
-
- 
 });
