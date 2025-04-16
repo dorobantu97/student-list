@@ -15,14 +15,18 @@ function createCard(user) {
    li.classList.add("cf");
 
    li.innerHTML = `
+   
    <div class="student-details">
-            <img class="avatar" src="${user.picture.thumbnail}" alt="Profile Picture">
-            <h3>${user.name.first} ${user.name.last}</h3>
-            <span class="email">${user.email}</span>
-          </div>
-          <div class="joined-details">
+
+         <img class="avatar" src="${user.picture.thumbnail}" alt="Profile Picture">
+         <h3>${user.name.first} ${user.name.last}</h3>
+         <span class="email">${user.email}</span>
+
+         <div class="joined-details">
             <span class="date">${user.registered.date}</span>
-          </div>
+         </div>
+         
+   </div>
    `;
    return li;
 }
@@ -68,14 +72,90 @@ function createButton( nr) {
    li.appendChild(btn);
    return li;
 }
+//functie ce primeste ca parametru numele userului si returneaza obiectul din data
+function findUser(first,last) {
+   
+   for (let i = 0; i < data.length; i++){
+      if (data[i].name.first === first&&data[i].name.last===last) {  ///////////////////////// apelam name ->first & last name
+         return data[i];
+      }
+   }
+   return {};
+}
+//functie ce primeste ca parametru first si last si returneaza pozitia din data
+function findUserPosition (first, last){
+   for (let i = 0; i < data.length; i++){
+      if (data[i].name.first === first && data[i].name.last === last) {
+         return i;
+      }
+   }
+   return -1;
+}
+function attachModal(user) {
+  
+   let div = document.createElement("div");
+   div.classList.add("modal");
+   div.innerHTML = `
+
+      <div class="modal-content">        
+
+         <i class="fa-solid fa-arrow-left back"></i>
+          
+        <li class="student-item cf profile-mod">
+
+          <button class="closed"><i class="fa-solid fa-xmark"></i></button>
+
+          <div class="student-details" >
+
+              <img class="avatar" src="${user.picture.thumbnail}" alt="Profile Picture">
+              <h3   class="name">${user.name.first} ${user.name.last}</h3>
+              <span class="email">${user.email}</span>
+            </div>
+
+          <div class="joined-details">
+
+            <span class="date">${user.registered.date}</span>
+          </div>
+
+          <div class="buttons-modal">
+
+          <button class="deleteMod"><i class="fa-solid fa-trash"></i></button>
+          <button class="editMod"><i class="fa-solid fa-user-pen"></i></button>
+
+          </div>
+
+        </li>
+
+        <i class="fa-solid fa-arrow-right next"></i>
+
+      </div>
+ 
+      `;
+   
+   containerModal.innerHTML = "";
+   containerModal.appendChild(div);
+
+   console.log(containerModal)
+}
+function closeModal() {
+   containerModal.innerHTML = "";
+}
+
 
 //===============SELECTORS & EVENT LISTENERS=========================
 
+let containerModal = document.querySelector("#modal-container");
 let card = document.querySelector(".student-item");
+let container = document.querySelector(".student-list");
 let searchBtn = document.querySelector("#search-btn");
 let searchInpt = document.querySelector("#search-inpt");
+let content = document.querySelector(".modal-content");
 let btn = document.querySelector(".button");
 let ul = document.querySelector(".link-list");
+let closed = document.querySelector(".closed");
+let deleteCard = document.querySelector(".delete");
+let editCard = document.querySelector(".edit");
+let emc = document.querySelector(".buttons-modal");
 let page = 1;
 let usersPerPage = 5;
 
@@ -98,3 +178,45 @@ ul.addEventListener("click", (e) => {
       loadUsers(data);
    }
 });
+
+container.addEventListener("click", (e) => {
+   let index = e.target;
+
+   if (index.tagName == "H3") {
+      console.log(index.textContent.split(" "));
+      let first = index.textContent.split(" ")[0];
+      let last = index.textContent.split(" ")[1];
+      let user = findUser(first, last);
+      attachModal(user);
+   }
+   
+});
+
+containerModal.addEventListener("click", (e) => {
+
+   let arrow = e.target;
+
+   if (arrow.classList.contains("next")) {
+      let name = containerModal.querySelector(".name").textContent;
+      let fname = name.split(" ")[0];
+      let lname = name.split(" ")[1];
+      let poz = findUserPosition(fname, lname);
+      attachModal(data[poz + 1]);
+   
+   }
+   else if (arrow.classList.contains("back")) {
+      let name = containerModal.querySelector(".name").textContent;
+      let fname = name.split(" ")[0];
+      let lname = name.split(" ")[1];
+      let left = findUserPosition(fname, lname);
+      if (left > 0) {
+         attachModal(data[left - 1]);
+      }
+   } else if (arrow.classList.contains("closed")) {
+      closeModal()
+   }
+   else if (arrow.classList.contains("deleteMod")) {
+     console.log("test");
+   }
+});
+
