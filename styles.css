@@ -261,15 +261,8 @@ header h2 {
   flex-direction:row;
   justify-content:space-between;
 }
-.delete{
-  border:0;
-  background-color: hsl(0, 0%, 100%);
-  width:30px;
-  height:30px;
-}
-.edit{
-  border:0;
-  background-color:hsl(0, 0%, 100%);
-  width: 30px;
-  height: 30px;
+.arrow-btn{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
