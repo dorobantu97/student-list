@@ -243,26 +243,11 @@ header h2 {
   text-align:center;
   justify-content:center;
 }
-.arrow{
-  position:absolute;
-  width:30px;
-  height:30px;
-}
-.profile-mod{
-  position:relative;
-}
-.closed{
-  position:absolute;
-  cursor:pointer;
-  margin-left:220px;
-}
-.buttons-modal{
-  display:flex;
-  flex-direction:row;
-  justify-content:space-between;
-}
-.arrow-btn{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+.deleteMod {
+  width:50px;
+  height:50px;
+  }
+.editMod{
+  width:50px;
+  height:50px;
 }

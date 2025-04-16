@@ -92,16 +92,18 @@ function findUserPosition (first, last){
    return -1;
 }
 function attachModal(user) {
-  
+   containerModal.innerHTML="";
    let div = document.createElement("div");
    div.classList.add("modal");
    div.innerHTML = `
 
       <div class="modal-content">        
-
-         <i class="fa-solid fa-arrow-left back"></i>
+          <i class="fa-solid fa-arrow-left back"></i>
           
-        <li class="student-item cf profile-mod">
+          <li class="student-item cf profile-mod">
+          
+
+          <button class="closed"><i class="fa-solid fa-xmark"></i></button>
 
           <div class="student-details" >
 
@@ -116,7 +118,7 @@ function attachModal(user) {
           </div>
 
           <div class="buttons-modal">
-
+          
           <button class="deleteMod"><i class="fa-solid fa-trash"></i></button>
           <button class="editMod"><i class="fa-solid fa-user-pen"></i></button>
 
@@ -130,10 +132,7 @@ function attachModal(user) {
  
       `;
    
-   containerModal.innerHTML = "";
    containerModal.appendChild(div);
-
-   console.log(containerModal)
 }
 function closeModal() {
    containerModal.innerHTML = "";
@@ -185,6 +184,7 @@ container.addEventListener("click", (e) => {
       let first = index.textContent.split(" ")[0];
       let last = index.textContent.split(" ")[1];
       let user = findUser(first, last);
+   
       attachModal(user);
    }
    
@@ -195,26 +195,25 @@ containerModal.addEventListener("click", (e) => {
    let arrow = e.target;
 
    if (arrow.classList.contains("next")) {
-      let name = containerModal.querySelector(".name").textContent;
-      let fname = name.split(" ")[0];
-      let lname = name.split(" ")[1];
-      let poz = findUserPosition(fname, lname);
-      attachModal(data[poz + 1]);
-   
-   }
-   else if (arrow.classList.contains("back")) {
-      let name = containerModal.querySelector(".name").textContent;
-      let fname = name.split(" ")[0];
-      let lname = name.split(" ")[1];
-      let left = findUserPosition(fname, lname);
-      if (left > 0) {
-         attachModal(data[left - 1]);
-      }
+     let name = containerModal.querySelector(".name").textContent;
+     let fname = name.split(" ")[0];
+     let lname = name.split(" ")[1];
+     let poz = findUserPosition(fname, lname);
+     attachModal(data[poz + 1]);
+   } else if (arrow.classList.contains("back")) {
+     let name = containerModal.querySelector(".name").textContent;
+     let fname = name.split(" ")[0];
+     let lname = name.split(" ")[1];
+     let left = findUserPosition(fname, lname);
+     if (left > 0) {
+       attachModal(data[left - 1]);
+     }
    } else if (arrow.classList.contains("closed")) {
-      closeModal()
-   }
-   else if (arrow.classList.contains("deleteMod")) {
-     console.log("test");
+     closeModal();
+   } else if (arrow.classList.contains("deleteMod")) {
+     console.log("test-delete")
+   } else if (arrow.classList.contains("editMod")) {
+     console.log("test-edit")
    }
 });
 
