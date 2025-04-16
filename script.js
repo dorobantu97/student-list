@@ -15,34 +15,18 @@ function createCard(user) {
    li.classList.add("cf");
 
    li.innerHTML = `
+   
+   <div class="student-details">
 
-            <div class="student-details">
-              <img class="avatar" src="${user.picture.thumbnail}" alt="Profile Picture">
-              <h3>${user.name.first} ${user.name.last}</h3>
-              <span class="email">${user.email}</span>
-            </div>
+         <img class="avatar" src="${user.picture.thumbnail}" alt="Profile Picture">
+         <h3>${user.name.first} ${user.name.last}</h3>
+         <span class="email">${user.email}</span>
 
-            <div class="buttons-modal">
-
-              <button class="deleteMod"><i class="fa-solid fa-trash"></i></button>
-
-              <button class="editMod"><i class="fa-solid fa-user-pen"></i></button>
-
-            </div>
-            
-            <div class="joined-details">
-              <span class="date">${user.registered.date}</span>
-            </div>
-
-            <div class="arrow-btn">
-
-              <button class="back"><i class="fa-solid fa-arrow-left"></i></button>
-
-              <button class="next"><i class="fa-solid fa-arrow-right"></i></button>
-              
-            </div>
-
-          <button class="closed"><i class="fa-solid fa-xmark"></i></button>
+         <div class="joined-details">
+            <span class="date">${user.registered.date}</span>
+         </div>
+         
+   </div>
    `;
    return li;
 }
@@ -113,33 +97,36 @@ function attachModal(user) {
    div.classList.add("modal");
    div.innerHTML = `
 
-      <div class="student-details">
+      <div class="modal-content">        
+
+         <i class="fa-solid fa-arrow-left back"></i>
+          
+        <li class="student-item cf profile-mod">
+
+          <div class="student-details" >
+
               <img class="avatar" src="${user.picture.thumbnail}" alt="Profile Picture">
-              <h3>${user.name.first} ${user.name.last}</h3>
+              <h3   class="name">${user.name.first} ${user.name.last}</h3>
               <span class="email">${user.email}</span>
             </div>
 
-            <div class="buttons-modal">
+          <div class="joined-details">
 
-              <button class="deleteMod"><i class="fa-solid fa-trash"></i></button>
+            <span class="date">${user.registered.date}</span>
+          </div>
 
-              <button class="editMod"><i class="fa-solid fa-user-pen"></i></button>
+          <div class="buttons-modal">
 
-            </div>
-            
-            <div class="joined-details">
-              <span class="date">${user.registered.date}</span>
-            </div>
+          <button class="deleteMod"><i class="fa-solid fa-trash"></i></button>
+          <button class="editMod"><i class="fa-solid fa-user-pen"></i></button>
 
-            <div class="arrow-btn">
+          </div>
 
-              <button class="back"><i class="fa-solid fa-arrow-left"></i></button>
+        </li>
 
-              <button class="next"><i class="fa-solid fa-arrow-right"></i></button>
-              
-            </div>
+        <i class="fa-solid fa-arrow-right next"></i>
 
-          <button class="closed"><i class="fa-solid fa-xmark"></i></button>
+      </div>
  
       `;
    
@@ -151,6 +138,7 @@ function attachModal(user) {
 function closeModal() {
    containerModal.innerHTML = "";
 }
+
 
 //===============SELECTORS & EVENT LISTENERS=========================
 
@@ -166,8 +154,6 @@ let closed = document.querySelector(".closed");
 let deleteCard = document.querySelector(".delete");
 let editCard = document.querySelector(".edit");
 let emc = document.querySelector(".buttons-modal");
-let deleteModal =document.querySelector(".deleteMod");
-let editModal = document.querySelector(".editMod");
 let page = 1;
 let usersPerPage = 5;
 
@@ -231,3 +217,4 @@ containerModal.addEventListener("click", (e) => {
      console.log("test");
    }
 });
+
